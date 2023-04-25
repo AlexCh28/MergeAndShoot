@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private PlayerInput _input;
+
+    private void Awake() {
+        _input = GetComponent<PlayerInput>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void Update() {
+        if (!_input.Touched) return;
+
+        print(_input.FirstTouch.position);
+        Ray ray = Camera.main.ScreenPointToRay(_input.FirstTouch.position);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo)){
+            print(hitInfo.point);
+            transform.position = hitInfo.point;
+        }    
     }
 }

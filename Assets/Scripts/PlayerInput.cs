@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Touch _firstTouch;
+    private Touch _secondTouch;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public Touch FirstTouch => _firstTouch;
+    public Touch SecondTouch => _secondTouch;
+    public bool Touched => Input.touchCount>0;
+
+    private void Update() {
+        if (Input.touchCount == 0) return;
+        _firstTouch = Input.GetTouch(0);
+
+        if (Input.touchCount < 2) return;
+        _secondTouch = Input.GetTouch(1);
     }
 }
