@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public abstract class Enemy : MonoBehaviour, IDamagable
 {
+    [SerializeField]
     protected float _health;
 
     protected Animator _animator;
@@ -22,8 +23,10 @@ public abstract class Enemy : MonoBehaviour, IDamagable
 
     public virtual void GetDamage(float damage)
     {
-        if (_health <= 0) {Debug.LogWarning(gameObject.name + " has health below zero"); return;}
+        if (_health <= 0) {Debug.LogWarning("Health below zero"); return;}
 
-        _health = _health-damage > 0 ? _health-damage : 0;    
+        _health = _health-damage > 0 ? _health-damage : 0;   
+
+        if (_health <= 0) Destroy(gameObject); 
     }
 }
